@@ -98,7 +98,7 @@
 
 <footer id="contact">
   <span>© Saturn</span>
-  <span>Paiement par Orange Money</span>
+  <span>Orange Money Guinée</span>
   <a href="#">Instagram</a>
   <a href="#">Livraison et retours</a>
   <a href="#">Conditions de vente</a>
@@ -113,10 +113,12 @@
   <label>Nom<input id="f-nom" autocomplete="name"></label>
   <label>Téléphone<input id="f-tel" type="tel" autocomplete="tel"></label>
   <label>Adresse de livraison<input id="f-adresse" autocomplete="street-address"></label>
+
   <div class="copier-wrap">
-    <span>Paiement Orange Money</span>
+    <span>Orange Money</span>
     <button class="copier" type="button" id="copier-numero">Copier le n°</button>
   </div>
+
   <p class="paiement">Paiement par Orange Money. Envoie le total au <strong id="numero"></strong>, puis envoie ta commande.</p>
   <a class="bouton-plein" id="envoyer" target="_blank" rel="noopener">Envoyer ma commande</a>
   <p class="erreur" id="erreur" role="alert"></p>
@@ -129,7 +131,9 @@
 
   const collections = [
     { nom: '« NOM » TEE', collection: 'Collection 1', prix: 0 },
-    { nom: '« NOM » TEE', collection: 'Collection 1', prix: 0 }
+    { nom: '« NOM » TEE', collection: 'Collection 1', prix: 0 },
+    { nom: '« NOM » TEE', collection: 'Collection 2', prix: 0, epuise: true },
+    { nom: '« NOM » TEE', collection: 'Collection 2', prix: 0 }
   ];
 
   const unSurUn = [
@@ -233,6 +237,7 @@
   voile.addEventListener('click', fermer);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panneau.hidden) fermer(); });
   champs.forEach(c => c.addEventListener('input', majPanier));
+
   copierNumeroBtn.addEventListener('click', () => {
     navigator.clipboard.writeText(NUMERO).catch(() => {});
   });
