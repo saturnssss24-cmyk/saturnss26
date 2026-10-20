@@ -23,7 +23,8 @@
   header nav a, .panier { color: var(--gris); transition: color .2s; }
   header nav a:hover, .panier:hover { color: var(--blanc); }
   .logo { line-height: 0; }
-  .logo img { display: block; height: 62px; width: auto; }
+  .logo svg { display: block; height: 62px; width: auto; }
+  .logo-text { font-size: 30px; letter-spacing: 18px; font-weight: 700; fill: #f2f2f2; }
   .panier { justify-self: end; background: none; border: 0; font: inherit; cursor: pointer; letter-spacing: .08em; text-transform: uppercase; }
 
   .hero { min-height: 60vh; display: grid; place-content: center; padding: 48px 24px; text-align: center; }
@@ -67,7 +68,7 @@
   @media (max-width: 560px) {
     header { grid-template-columns: auto 1fr auto; gap: 12px; padding: 16px; }
     .logo { order: -1; }
-    .logo img { height: 52px; }
+    .logo svg { height: 52px; }
     header nav { justify-content: center; gap: 14px; letter-spacing: .1em; }
   }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
@@ -77,7 +78,11 @@
 
 <header>
   <nav><a href="#collections">Collections</a><a href="#un-sur-un">1 OF 1</a><a href="#contact">Contact</a></nav>
-  <a class="logo" href="#" aria-label="Saturn, accueil"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI4AAACWCAQAAACicXh1AABCSUlEQVR42tX9dbxUZfc//j/3xDmHbqSRMjBQQUQUBZNQbFFsEbvF9rZvuws7" alt="Saturn logo"></a>
+  <a class="logo" href="#" aria-label="Saturn, accueil">
+    <svg viewBox="0 0 260 80" role="img" aria-label="SATURN logo">
+      <text x="50%" y="52%" text-anchor="middle" dominant-baseline="middle" class="logo-text">SATURN</text>
+    </svg>
+  </a>
   <button class="panier" id="ouvrir-panier" type="button">Panier (0)</button>
 </header>
 
