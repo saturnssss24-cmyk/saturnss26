@@ -10,27 +10,23 @@
   :root {
     --bg: #050505;
     --bg-soft: #0d0d0d;
-    --panel: #121212;
+    --panel: #111111;
     --panel-2: #171717;
     --line: rgba(255,255,255,.08);
-    --line-strong: rgba(255,255,255,.16);
-    --text: #f5f5f3;
-    --muted: #a6a6a3;
-    --muted-2: #7d7d7a;
-    --red: #b30f0f;
-    --red-soft: rgba(179, 15, 15, .12);
-    --shadow: 0 24px 60px rgba(0,0,0,.48);
+    --line-strong: rgba(255,255,255,.14);
+    --text: #f5f5f5;
+    --muted: #b0b0b0;
+    --muted-2: #7a7a7a;
+    --shadow: 0 18px 40px rgba(0,0,0,.28);
     color-scheme: dark;
   }
 
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 20px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 18px; }
   body {
     margin: 0;
     min-height: 100vh;
-    background:
-      radial-gradient(circle at top, rgba(179,15,15,.18), transparent 26%),
-      linear-gradient(180deg, #050505 0%, #090909 100%);
+    background: var(--bg);
     color: var(--text);
     font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.5;
@@ -38,67 +34,42 @@
   }
 
   a { color: inherit; text-decoration: none; }
+  button, input { font: inherit; }
   a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
 
-  .page-shell {
-    width: min(1280px, calc(100% - 32px));
-    margin: 0 auto;
-  }
+  .page-shell { width: min(1240px, calc(100% - 32px)); margin: 0 auto; }
 
   header {
     position: sticky;
     top: 0;
-    z-index: 40;
-    background: rgba(5,5,5,.72);
-    backdrop-filter: blur(14px);
+    z-index: 20;
+    background: rgba(5,5,5,.78);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
   }
 
   .header-inner {
+    min-height: 72px;
     display: grid;
     grid-template-columns: 1fr auto auto;
     align-items: center;
-    gap: 20px;
-    min-height: 76px;
-    padding: 0 10px;
+    gap: 18px;
   }
 
   .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
     font-size: 11px;
-    letter-spacing: .2em;
+    letter-spacing: .22em;
     text-transform: uppercase;
     font-weight: 700;
     color: var(--text);
-  }
-
-  .brand-mark {
-    width: 18px;
-    height: 18px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--line-strong);
-    background: linear-gradient(135deg, rgba(255,255,255,.08), transparent);
-    position: relative;
-  }
-
-  .brand-mark::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    border: 1px solid var(--red);
-    transform: rotate(45deg);
-    display: block;
+    white-space: nowrap;
   }
 
   nav {
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 26px;
+    align-items: center;
   }
 
   nav a {
@@ -113,85 +84,58 @@
 
   .panier {
     justify-self: end;
+    background: none;
     border: 1px solid var(--line-strong);
-    background: rgba(255,255,255,.02);
     color: var(--text);
-    padding: 9px 14px;
-    font: inherit;
+    padding: 9px 12px;
     font-size: 10px;
     letter-spacing: .14em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: border-color .2s ease, transform .2s ease;
+    transition: border-color .2s ease, background .2s ease;
   }
 
   .panier:hover {
-    border-color: rgba(255,255,255,.3);
-    transform: translateY(-1px);
+    background: rgba(255,255,255,.03);
+    border-color: rgba(255,255,255,.22);
   }
 
-  main {
-    padding: 22px 0 60px;
-  }
+  main { padding: 30px 0 54px; }
 
   .hero {
-    position: relative;
-    min-height: 56vh;
+    min-height: 52vh;
     display: grid;
     place-items: center;
     text-align: center;
-    padding: 28px 0 30px;
-  }
-
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 18px 0 auto;
-    height: 1px;
-    width: min(1180px, 100%);
-    background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
-  }
-
-  .hero-inner {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    justify-items: center;
-    gap: 12px;
-  }
-
-  .kicker {
-    color: var(--muted);
-    font-size: 10px;
-    letter-spacing: .28em;
-    text-transform: uppercase;
+    padding: 20px 0 24px;
+    border-bottom: 1px solid var(--line);
   }
 
   .hero h1 {
     margin: 0;
-    font-size: clamp(58px, 10vw, 184px);
+    font-size: clamp(64px, 10vw, 170px);
     line-height: .82;
     letter-spacing: .12em;
     text-transform: uppercase;
     font-weight: 900;
+    color: var(--text);
   }
 
   .hero .sub {
+    margin-top: 12px;
     color: var(--muted);
     font-size: 10px;
     letter-spacing: .22em;
     text-transform: uppercase;
   }
 
-  section {
-    padding: 22px 0 40px;
-  }
+  section { padding: 26px 0 38px; }
 
   .section-head {
     display: flex;
+    align-items: flex-end;
     justify-content: space-between;
-    align-items: end;
-    gap: 18px;
+    gap: 16px;
     padding-bottom: 18px;
     border-bottom: 1px solid var(--line);
     margin-bottom: 24px;
@@ -226,7 +170,6 @@
     border-bottom: 1px solid transparent;
     color: var(--muted);
     padding: 6px 0;
-    font: inherit;
     font-size: 11px;
     letter-spacing: .16em;
     text-transform: uppercase;
@@ -243,7 +186,7 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 26px 22px;
+    gap: 28px 20px;
   }
 
   .product {
@@ -252,29 +195,20 @@
     gap: 12px;
   }
 
-  .product:hover .product-art {
-    transform: translateY(-4px);
-    border-color: var(--line-strong);
-    box-shadow: var(--shadow);
-  }
-
   .product-art {
-    position: relative;
     aspect-ratio: 4 / 5;
+    background: linear-gradient(180deg, #121212 0%, #0b0b0b 100%);
     border: 1px solid var(--line);
-    background:
-      linear-gradient(135deg, rgba(255,255,255,.08), transparent 32%),
-      linear-gradient(180deg, #171717 0%, #0b0b0b 100%);
+    box-shadow: var(--shadow);
+    position: relative;
     overflow: hidden;
-    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
   }
 
   .product-art::before {
     content: "";
     position: absolute;
-    inset: 16px;
+    inset: 14px;
     border: 1px solid rgba(255,255,255,.06);
-    background: radial-gradient(circle at 50% 38%, rgba(179,15,15,.22), transparent 36%);
   }
 
   .product-art::after {
@@ -282,8 +216,8 @@
     position: absolute;
     right: 18px;
     bottom: 18px;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border: 1px solid rgba(255,255,255,.12);
     transform: rotate(45deg);
   }
@@ -310,12 +244,11 @@
     border: 0;
     border-bottom: 1px solid var(--muted-2);
     color: var(--text);
-    font: inherit;
+    padding: 0 0 4px;
+    width: fit-content;
     font-size: 10px;
     letter-spacing: .16em;
     text-transform: uppercase;
-    padding: 0 0 4px;
-    width: fit-content;
     cursor: pointer;
     transition: border-color .2s ease, color .2s ease;
   }
@@ -329,13 +262,13 @@
   footer {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px 24px;
-    padding: 26px 0 38px;
+    gap: 12px 22px;
+    padding: 24px 0 36px;
+    border-top: 1px solid var(--line);
     color: var(--muted);
     font-size: 10px;
     letter-spacing: .14em;
     text-transform: uppercase;
-    border-top: 1px solid var(--line);
   }
 
   footer .push { margin-left: auto; }
@@ -354,16 +287,15 @@
     top: 0;
     right: 0;
     bottom: 0;
-    width: min(430px, calc(100% - 12px));
+    width: min(420px, calc(100% - 12px));
     background: rgba(10,10,10,.98);
     border-left: 1px solid var(--line);
-    box-shadow: -30px 0 80px rgba(0,0,0,.5);
     z-index: 31;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 18px;
-    padding: 22px 18px 32px;
+    padding: 22px 18px 26px;
   }
 
   .panel-head {
@@ -405,9 +337,8 @@
     border: 1px solid var(--line);
     color: var(--text);
     padding: 12px 14px;
-    font: inherit;
     font-size: 16px;
-    border-radius: 10px;
+    border-radius: 8px;
   }
 
   .payment-box {
@@ -431,20 +362,19 @@
     color: var(--bg);
     padding: 14px 16px;
     font-size: 11px;
-    font-weight: 700;
     letter-spacing: .18em;
     text-transform: uppercase;
+    font-weight: 700;
     border-radius: 999px;
   }
 
-  .error { min-height: 1.5em; color: #ffb0b0; }
+  .error { min-height: 1.5em; color: #ffb3b3; }
 
   @media (max-width: 640px) {
     .header-inner {
       grid-template-columns: 1fr auto;
       gap: 10px;
       min-height: 72px;
-      padding: 10px 0;
     }
 
     nav {
@@ -454,25 +384,19 @@
       gap: 8px 14px;
     }
 
-    .brand { font-size: 9px; letter-spacing: .14em; }
     nav a { font-size: 8px; letter-spacing: .12em; }
+    .brand { font-size: 9px; letter-spacing: .16em; }
     .panier { font-size: 8px; letter-spacing: .12em; }
-
-    .hero { min-height: 46vh; }
     .hero h1 { letter-spacing: .08em; }
     .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    footer { padding-top: 20px; }
-    .panel { padding: 18px 14px 24px; }
+    .panel { padding: 18px 14px 22px; }
   }
 </style>
 </head>
 <body>
   <header>
     <div class="page-shell header-inner">
-      <div class="brand" aria-label="SATURN">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>SATURN</span>
-      </div>
+      <div class="brand">SATURN</div>
       <nav aria-label="Navigation principale">
         <a href="#collections">United Shop</a>
         <a href="#un-sur-un">1 of 1</a>
@@ -484,10 +408,9 @@
 
   <main class="page-shell">
     <section class="hero">
-      <div class="hero-inner">
-        <span class="kicker">Streetwear / limited edition</span>
+      <div>
         <h1>SATURN</h1>
-        <div class="sub">The archive / the drop / the made</div>
+        <div class="sub">Streetwear / limited edition</div>
       </div>
     </section>
 
