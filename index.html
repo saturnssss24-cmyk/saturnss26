@@ -5,175 +5,226 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SATURN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --noir: #050505;
-    --noir-2: #0d0d0d;
-    --surface: #121212;
-    --surface-2: #1a1a1a;
-    --ligne: rgba(255,255,255,.09);
-    --gris: #b2b2b2;
-    --gris-2: #7a7a7a;
-    --blanc: #f5f5f5;
-    --rouge: #b10d0d;
-    --rouge-soft: rgba(177, 13, 13, .18);
-    --shadow: 0 24px 60px rgba(0,0,0,.45);
+    --bg: #050505;
+    --bg-soft: #0d0d0d;
+    --panel: #121212;
+    --panel-2: #171717;
+    --line: rgba(255,255,255,.08);
+    --line-strong: rgba(255,255,255,.16);
+    --text: #f5f5f3;
+    --muted: #a6a6a3;
+    --muted-2: #7d7d7a;
+    --red: #b30f0f;
+    --red-soft: rgba(179, 15, 15, .12);
+    --shadow: 0 24px 60px rgba(0,0,0,.48);
     color-scheme: dark;
-    box-sizing: border-box;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 16px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 20px; }
   body {
     margin: 0;
+    min-height: 100vh;
     background:
-      radial-gradient(circle at top, rgba(177,13,13,.16), transparent 32%),
+      radial-gradient(circle at top, rgba(179,15,15,.18), transparent 26%),
       linear-gradient(180deg, #050505 0%, #090909 100%);
-    color: var(--blanc);
+    color: var(--text);
     font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.5;
-    letter-spacing: .01em;
-    min-height: 100vh;
+    letter-spacing: .02em;
   }
 
   a { color: inherit; text-decoration: none; }
-  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--blanc); outline-offset: 3px; }
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+
+  .page-shell {
+    width: min(1280px, calc(100% - 32px));
+    margin: 0 auto;
+  }
 
   header {
     position: sticky;
     top: 0;
-    z-index: 20;
+    z-index: 40;
+    background: rgba(5,5,5,.72);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-inner {
     display: grid;
     grid-template-columns: 1fr auto auto;
     align-items: center;
-    gap: 18px;
-    padding: 18px 28px;
-    background: rgba(5, 5, 5, .78);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--ligne);
+    gap: 20px;
+    min-height: 76px;
+    padding: 0 10px;
   }
 
-  header nav {
-    grid-column: 2;
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .brand-mark {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line-strong);
+    background: linear-gradient(135deg, rgba(255,255,255,.08), transparent);
+    position: relative;
+  }
+
+  .brand-mark::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--red);
+    transform: rotate(45deg);
+    display: block;
+  }
+
+  nav {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 26px;
-    font-weight: 600;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    font-size: 10px;
   }
 
-  header nav a, .panier { color: var(--gris); transition: color .2s, opacity .2s; }
-  header nav a:hover, .panier:hover { color: var(--blanc); }
+  nav a {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    transition: color .2s ease;
+  }
 
-  .logo { display: none; }
-  .logo svg { display: block; width: 100%; height: 100%; }
+  nav a:hover { color: var(--text); }
 
   .panier {
     justify-self: end;
-    background: none;
-    border: 1px solid var(--ligne);
-    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: rgba(255,255,255,.02);
+    color: var(--text);
     padding: 9px 14px;
     font: inherit;
-    cursor: pointer;
-    letter-spacing: .12em;
-    text-transform: uppercase;
     font-size: 10px;
-    white-space: nowrap;
-    color: var(--blanc);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+
+  .panier:hover {
+    border-color: rgba(255,255,255,.3);
+    transform: translateY(-1px);
   }
 
   main {
-    width: min(1220px, calc(100% - 32px));
-    margin: 0 auto;
+    padding: 22px 0 60px;
   }
 
   .hero {
-    min-height: 50vh;
-    display: grid;
-    place-content: center;
-    text-align: center;
-    padding: 44px 16px 24px;
     position: relative;
+    min-height: 56vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 28px 0 30px;
   }
 
   .hero::before {
     content: "";
     position: absolute;
-    inset: 30px 0 auto;
-    margin: 0 auto;
-    width: min(980px, 80vw);
+    inset: 18px 0 auto;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,.24), transparent);
+    width: min(1180px, 100%);
+    background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+  }
+
+  .kicker {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
   }
 
   .hero h1 {
     margin: 0;
-    font-weight: 700;
-    font-size: clamp(54px, 9vw, 180px);
-    line-height: .88;
+    font-size: clamp(58px, 10vw, 184px);
+    line-height: .82;
     letter-spacing: .12em;
     text-transform: uppercase;
-    position: relative;
-    z-index: 1;
+    font-weight: 900;
   }
 
-  .hero .eyebrow {
-    display: inline-block;
-    margin-bottom: 18px;
-    color: var(--gris);
-    letter-spacing: .24em;
-    text-transform: uppercase;
+  .hero .sub {
+    color: var(--muted);
     font-size: 10px;
-    position: relative;
-    z-index: 1;
+    letter-spacing: .22em;
+    text-transform: uppercase;
   }
 
-  section { padding-bottom: 80px; }
+  section {
+    padding: 22px 0 40px;
+  }
 
   .section-head {
     display: flex;
     justify-content: space-between;
     align-items: end;
-    gap: 20px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--ligne);
-    margin-bottom: 26px;
+    gap: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 24px;
   }
 
-  h2 {
-    font-weight: 600;
+  .section-head h2 {
+    margin: 0;
     font-size: 12px;
     letter-spacing: .18em;
     text-transform: uppercase;
-    color: var(--gris);
-    margin: 0;
+    color: var(--muted);
+    font-weight: 600;
   }
 
   .section-head .meta {
-    color: var(--gris);
-    font-size: 11px;
-    letter-spacing: .14em;
+    color: var(--muted-2);
+    font-size: 10px;
+    letter-spacing: .18em;
     text-transform: uppercase;
   }
 
-  .filtres {
+  .filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 18px;
-    padding: 0 0 28px;
+    gap: 12px 20px;
+    padding: 0 0 24px;
   }
 
-  .filtres button {
+  .filters button {
     background: none;
     border: 0;
     border-bottom: 1px solid transparent;
-    color: var(--gris);
+    color: var(--muted);
     padding: 6px 0;
     font: inherit;
     font-size: 11px;
@@ -183,394 +234,438 @@
     transition: color .2s ease, border-color .2s ease;
   }
 
-  .filtres button:hover { color: var(--blanc); }
-  .filtres button[aria-pressed="true"] {
-    color: var(--blanc);
-    border-bottom-color: var(--blanc);
+  .filters button:hover { color: var(--text); }
+  .filters button[aria-pressed="true"] {
+    color: var(--text);
+    border-bottom-color: var(--text);
   }
 
-  .grille {
+  .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 30px 22px;
+    gap: 26px 22px;
   }
 
-  .produit {
+  .product {
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
 
-  .photo {
+  .product:hover .product-art {
+    transform: translateY(-4px);
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow);
+  }
+
+  .product-art {
     position: relative;
     aspect-ratio: 4 / 5;
+    border: 1px solid var(--line);
     background:
-      linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,0) 40%),
-      linear-gradient(180deg, #171717, #0d0d0d);
-    border: 1px solid var(--ligne);
-    box-shadow: var(--shadow);
-    transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+      linear-gradient(135deg, rgba(255,255,255,.08), transparent 32%),
+      linear-gradient(180deg, #171717 0%, #0b0b0b 100%);
     overflow: hidden;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
   }
 
-  .photo::before {
+  .product-art::before {
     content: "";
     position: absolute;
-    inset: 14px;
-    border: 1px solid rgba(255,255,255,.05);
-    background: radial-gradient(circle at 50% 35%, rgba(177,13,13,.28), transparent 38%);
+    inset: 16px;
+    border: 1px solid rgba(255,255,255,.06);
+    background: radial-gradient(circle at 50% 38%, rgba(179,15,15,.22), transparent 36%);
   }
 
-  .photo::after {
+  .product-art::after {
     content: "";
     position: absolute;
     right: 18px;
     bottom: 18px;
-    width: 42px;
-    height: 42px;
+    width: 36px;
+    height: 36px;
     border: 1px solid rgba(255,255,255,.12);
     transform: rotate(45deg);
-    opacity: .85;
   }
 
-  .produit:hover .photo {
-    transform: translateY(-5px);
-    border-color: rgba(255,255,255,.18);
-    box-shadow: 0 28px 70px rgba(0,0,0,.58);
-  }
-
-  .produit h3 {
-    font-weight: 500;
-    font-size: 13px;
-    letter-spacing: .08em;
-    text-transform: uppercase;
+  .product h3 {
     margin: 0;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 600;
   }
 
-  .produit span {
+  .product .price {
     display: block;
-    color: var(--gris);
-    font-size: 12px;
-    letter-spacing: .08em;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .12em;
     text-transform: uppercase;
   }
 
-  .ajout, .lien, .copier {
+  .product button,
+  .mini-button {
     background: none;
     border: 0;
-    border-bottom: 1px solid var(--gris-2);
-    color: var(--blanc);
+    border-bottom: 1px solid var(--muted-2);
+    color: var(--text);
     font: inherit;
-    font-size: 11px;
-    letter-spacing: .14em;
+    font-size: 10px;
+    letter-spacing: .16em;
     text-transform: uppercase;
     padding: 0 0 4px;
-    cursor: pointer;
-    transition: color .2s, border-color .2s;
     width: fit-content;
+    cursor: pointer;
+    transition: border-color .2s ease, color .2s ease;
   }
 
-  .ajout { margin-top: 2px; }
-  .ajout:hover, .lien:hover, .copier:hover { color: var(--blanc); border-color: var(--blanc); }
+  .product button:hover,
+  .mini-button:hover {
+    color: var(--text);
+    border-color: var(--text);
+  }
 
   footer {
     display: flex;
     flex-wrap: wrap;
     gap: 12px 24px;
-    padding: 28px 24px 56px;
-    color: var(--gris);
-    font-size: 11px;
-    letter-spacing: .12em;
+    padding: 26px 0 38px;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: .14em;
     text-transform: uppercase;
-    border-top: 1px solid rgba(255,255,255,.06);
+    border-top: 1px solid var(--line);
   }
 
-  footer a:hover { color: var(--blanc); }
-  footer .reste { margin-left: auto; }
+  footer .push { margin-left: auto; }
 
   [hidden] { display: none !important; }
 
-  .voile {
+  .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, .7);
-    z-index: 10;
+    background: rgba(0,0,0,.72);
+    z-index: 30;
   }
 
-  .panneau {
+  .panel {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     width: min(430px, calc(100% - 12px));
-    background: rgba(10, 10, 10, .98);
-    border-left: 1px solid var(--ligne);
+    background: rgba(10,10,10,.98);
+    border-left: 1px solid var(--line);
     box-shadow: -30px 0 80px rgba(0,0,0,.5);
-    z-index: 11;
+    z-index: 31;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 18px;
-    padding: 22px 18px 28px;
+    padding: 22px 18px 32px;
   }
 
-  .entete-panneau { display: flex; justify-content: space-between; align-items: baseline; }
-  .entete-panneau h2 { padding: 0; }
-  .ligne {
+  .panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .panel-head h2 {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .line {
     display: flex;
     justify-content: space-between;
     gap: 16px;
     padding: 12px 0;
-    border-bottom: 1px solid var(--ligne);
+    border-bottom: 1px solid var(--line);
     font-size: 13px;
-    color: var(--blanc);
   }
 
-  .vide { color: var(--gris); }
+  .empty { color: var(--muted); }
   .total { font-weight: 800; }
-  .panneau label { display: grid; gap: 6px; color: var(--gris); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
-  .panneau input {
-    background: var(--surface-2);
-    border: 1px solid var(--ligne);
-    color: var(--blanc);
+  .panel label {
+    display: grid;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+
+  .panel input {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--text);
     padding: 12px 14px;
     font: inherit;
     font-size: 16px;
     border-radius: 10px;
   }
 
-  .panneau input:focus-visible { outline: 2px solid var(--blanc); outline-offset: 2px; }
-  .paiement { color: var(--gris); }
-  .paiement strong { color: var(--blanc); font-weight: 600; }
-  .bouton-plein {
+  .payment-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+  }
+
+  .payment-box span,
+  .payment-text { color: var(--muted); }
+
+  .payment-text strong { color: var(--text); font-weight: 600; }
+
+  .cta {
     display: block;
+    width: 100%;
     text-align: center;
-    background: var(--blanc);
-    color: var(--noir);
-    padding: 15px 18px;
+    background: var(--text);
+    color: var(--bg);
+    padding: 14px 16px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: .14em;
+    letter-spacing: .18em;
     text-transform: uppercase;
     border-radius: 999px;
   }
-  .copier-wrap { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; }
-  .erreur { min-height: 1.5em; color: #ffb4b4; }
 
-  @media (max-width: 560px) {
-    header {
+  .error { min-height: 1.5em; color: #ffb0b0; }
+
+  @media (max-width: 640px) {
+    .header-inner {
       grid-template-columns: 1fr auto;
       gap: 10px;
-      padding: 14px 16px;
+      min-height: 72px;
+      padding: 10px 0;
     }
-    header nav {
-      grid-column: 1 / -1;
-      gap: 10px 14px;
-      flex-wrap: wrap;
-      letter-spacing: .12em;
-      font-size: 9px;
-    }
-    .panier { font-size: 9px; padding: 8px 12px; }
-    main { width: min(100%, calc(100% - 20px)); }
-    .hero { min-height: 42vh; padding-top: 28px; }
-    .hero h1 { letter-spacing: .08em; }
-    .grille { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    section { padding-bottom: 56px; }
-    footer { padding: 20px 16px 28px; }
-    .panneau { padding: 18px 16px 22px; }
-  }
 
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    * { transition: none !important; }
+    nav {
+      grid-column: 1 / -1;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+    }
+
+    .brand { font-size: 9px; letter-spacing: .14em; }
+    nav a { font-size: 8px; letter-spacing: .12em; }
+    .panier { font-size: 8px; letter-spacing: .12em; }
+
+    .hero { min-height: 46vh; }
+    .hero h1 { letter-spacing: .08em; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    footer { padding-top: 20px; }
+    .panel { padding: 18px 14px 24px; }
   }
 </style>
 </head>
 <body>
-
-<header>
-  <nav><a href="#collections">United Shop</a><a href="#un-sur-un">1 OF 1</a><a href="#contact">Contact</a></nav>
-  <button class="panier" id="ouvrir-panier" type="button">Panier (0)</button>
-</header>
-
-<main>
-  <section class="hero">
-    <span class="eyebrow">United Shop</span>
-    <h1>SATURN</h1>
-  </section>
-
-  <section id="collections">
-    <div class="section-head">
-      <h2>United Shop</h2>
-      <span class="meta">Archive 01</span>
+  <header>
+    <div class="page-shell header-inner">
+      <div class="brand" aria-label="SATURN">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>SATURN</span>
+      </div>
+      <nav aria-label="Navigation principale">
+        <a href="#collections">United Shop</a>
+        <a href="#un-sur-un">1 of 1</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="panier" id="ouvrir-panier" type="button">Panier (0)</button>
     </div>
-    <div class="filtres" id="filtres"></div>
-    <div class="grille" id="grille-collections"></div>
-  </section>
+  </header>
 
-  <section id="un-sur-un">
-    <div class="section-head">
-      <h2>1 OF 1</h2>
-      <span class="meta">Limited</span>
+  <main class="page-shell">
+    <section class="hero">
+      <div class="hero-inner">
+        <span class="kicker">Streetwear / limited edition</span>
+        <h1>SATURN</h1>
+        <div class="sub">The archive / the drop / the made</div>
+      </div>
+    </section>
+
+    <section id="collections">
+      <div class="section-head">
+        <h2>United Shop</h2>
+        <span class="meta">Collection archive</span>
+      </div>
+      <div class="filters" id="filtres"></div>
+      <div class="grid" id="grille-collections"></div>
+    </section>
+
+    <section id="un-sur-un">
+      <div class="section-head">
+        <h2>1 Of 1</h2>
+        <span class="meta">Unique pieces</span>
+      </div>
+      <div class="grid" id="grille-1of1"></div>
+    </section>
+  </main>
+
+  <footer id="contact" class="page-shell">
+    <span>© Saturn</span>
+    <span>Orange Money Guinée</span>
+    <a href="#">Instagram</a>
+    <a href="#">Livraison et retours</a>
+    <a href="#">Conditions de vente</a>
+    <a class="push" href="#">Nous écrire</a>
+  </footer>
+
+  <div class="overlay" id="voile" hidden></div>
+  <aside class="panel" id="panneau" role="dialog" aria-modal="true" aria-label="Panier" hidden>
+    <div class="panel-head">
+      <h2>Panier</h2>
+      <button type="button" class="mini-button" id="fermer">Fermer</button>
     </div>
-    <div class="grille" id="grille-1of1"></div>
-  </section>
-</main>
+    <div id="liste-panier"></div>
+    <p class="total" id="total-panier"></p>
+    <label>Nom<input id="f-nom" autocomplete="name"></label>
+    <label>Téléphone<input id="f-tel" type="tel" autocomplete="tel"></label>
+    <label>Adresse de livraison<input id="f-adresse" autocomplete="street-address"></label>
 
-<footer id="contact">
-  <span>© Saturn</span>
-  <span>Orange Money Guinée</span>
-  <a href="#">Instagram</a>
-  <a href="#">Livraison et retours</a>
-  <a href="#">Conditions de vente</a>
-  <a class="reste" href="#">Nous écrire</a>
-</footer>
+    <div class="payment-box">
+      <span>Orange Money</span>
+      <button class="mini-button" type="button" id="copier-numero">Copier le n°</button>
+    </div>
 
-<div class="voile" id="voile" hidden></div>
-<aside class="panneau" id="panneau" role="dialog" aria-modal="true" aria-label="Panier" hidden>
-  <div class="entete-panneau"><h2>Panier</h2><button type="button" class="lien" id="fermer">Fermer</button></div>
-  <div id="liste-panier"></div>
-  <p class="total" id="total-panier"></p>
-  <label>Nom<input id="f-nom" autocomplete="name"></label>
-  <label>Téléphone<input id="f-tel" type="tel" autocomplete="tel"></label>
-  <label>Adresse de livraison<input id="f-adresse" autocomplete="street-address"></label>
+    <p class="payment-text">Paiement par Orange Money. Envoie le total au <strong id="numero"></strong>, puis envoie ta commande.</p>
+    <a class="cta" id="envoyer" target="_blank" rel="noopener">Envoyer ma commande</a>
+    <p class="error" id="erreur" role="alert"></p>
+  </aside>
 
-  <div class="copier-wrap">
-    <span>Orange Money</span>
-    <button class="copier" type="button" id="copier-numero">Copier le n°</button>
-  </div>
+  <script>
+    const NUMERO = '224612690129';
+    const formatNumero = value => '+' + value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
+    document.getElementById('numero').textContent = formatNumero(NUMERO);
 
-  <p class="paiement">Paiement par Orange Money. Envoie le total au <strong id="numero"></strong>, puis envoie ta commande.</p>
-  <a class="bouton-plein" id="envoyer" target="_blank" rel="noopener">Envoyer ma commande</a>
-  <p class="erreur" id="erreur" role="alert"></p>
-</aside>
+    const collections = [
+      { nom: '« NOM » TEE', collection: 'United Shop', prix: 0 },
+      { nom: '« NOM » TEE', collection: 'United Shop', prix: 0 },
+      { nom: '« NOM » TEE', collection: 'United Shop', prix: 0 },
+      { nom: '« NOM » TEE', collection: 'United Shop', prix: 0 }
+    ];
 
-<script>
-  const NUMERO = '224612690129';
-  const formatNumero = value => '+' + value.replace(/(\d{3})(\d{3})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
-  document.getElementById('numero').textContent = formatNumero(NUMERO);
+    const unSurUn = [
+      { nom: '« NOM » TEE', prix: 0 },
+      { nom: '« NOM » TEE', prix: 0 }
+    ];
+    unSurUn.forEach(p => p.unique = true);
 
-  const collections = [
-    { nom: '« NOM » TEE', collection: 'United Shop', prix: 0 },
-    { nom: '« NOM » TEE', collection: 'United Shop', prix: 0 },
-    { nom: '« NOM » TEE', collection: 'United Shop', prix: 0 },
-    { nom: '« NOM » TEE', collection: 'United Shop', prix: 0 }
-  ];
+    const gnf = n => (n ? n.toLocaleString('fr-FR').replace(/\s/g, ' ') + ' GNF' : '00 000 GNF');
 
-  const unSurUn = [
-    { nom: '« NOM » TEE', prix: 0 },
-    { nom: '« NOM » TEE', prix: 0 }
-  ];
-  unSurUn.forEach(p => p.unique = true);
+    function afficher(liste, grille) {
+      grille.innerHTML = '';
+      liste.forEach(p => {
+        const bloc = document.createElement('div');
+        bloc.className = 'product';
+        bloc.innerHTML = '<div class="product-art"></div><h3>' + p.nom + '</h3><span class="price">' + gnf(p.prix) + '</span>';
+        if (p.epuise) {
+          bloc.insertAdjacentHTML('beforeend', '<span class="price">Épuisé</span>');
+        } else {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = 'Ajouter au panier';
+          b.addEventListener('click', () => ajouter(p));
+          bloc.appendChild(b);
+        }
+        grille.appendChild(bloc);
+      });
+    }
 
-  const gnf = n => (n ? n.toLocaleString('fr-FR').replace(/\s/g, ' ') + ' GNF' : '00 000 GNF');
+    const grilleCollections = document.getElementById('grille-collections');
+    const noms = ['Tout', ...new Set(collections.map(p => p.collection))];
+    const zoneFiltres = document.getElementById('filtres');
+    noms.forEach((nom, i) => {
+      const b = document.createElement('button');
+      b.textContent = nom;
+      b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+      b.addEventListener('click', () => {
+        zoneFiltres.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+        afficher(nom === 'Tout' ? collections : collections.filter(p => p.collection === nom), grilleCollections);
+      });
+      zoneFiltres.appendChild(b);
+    });
 
-  function afficher(liste, grille) {
-    grille.innerHTML = '';
-    liste.forEach(p => {
-      const bloc = document.createElement('div');
-      bloc.className = 'produit';
-      bloc.innerHTML = '<div class="photo"></div><h3>' + p.nom + '</h3><span>' + gnf(p.prix) + '</span>';
-      if (p.epuise) {
-        bloc.insertAdjacentHTML('beforeend', '<span>Épuisé</span>');
-      } else {
+    const panier = [];
+    const boutonPanier = document.getElementById('ouvrir-panier');
+    const panneau = document.getElementById('panneau');
+    const voile = document.getElementById('voile');
+    const listePanier = document.getElementById('liste-panier');
+    const totalPanier = document.getElementById('total-panier');
+    const envoyer = document.getElementById('envoyer');
+    const erreur = document.getElementById('erreur');
+    const champs = [document.getElementById('f-nom'), document.getElementById('f-tel'), document.getElementById('f-adresse')];
+    const copierNumeroBtn = document.getElementById('copier-numero');
+
+    function ajouter(p) {
+      const ligne = panier.find(l => l.p === p);
+      if (!ligne) panier.push({ p: p, qte: 1 });
+      else if (!p.unique) ligne.qte++;
+      majPanier();
+      ouvrir();
+    }
+
+    function retirer(i) { panier.splice(i, 1); majPanier(); }
+
+    function message() {
+      const total = panier.reduce((s, l) => s + l.p.prix * l.qte, 0);
+      return 'Bonjour, je souhaite commander :\n' +
+        panier.map(l => '- ' + l.qte + ' × ' + l.p.nom + ' (' + gnf(l.p.prix) + ')').join('\n') +
+        '\nTotal : ' + gnf(total) + '\nPaiement : Orange Money' +
+        '\nNom : ' + champs[0].value + '\nTéléphone : ' + champs[1].value + '\nAdresse : ' + champs[2].value;
+    }
+
+    function majPanier() {
+      const nb = panier.reduce((s, l) => s + l.qte, 0);
+      const total = panier.reduce((s, l) => s + l.p.prix * l.qte, 0);
+      boutonPanier.textContent = 'Panier (' + nb + ')';
+      totalPanier.textContent = 'Total : ' + gnf(total);
+      document.getElementById('numero').textContent = formatNumero(NUMERO);
+      listePanier.innerHTML = panier.length ? '' : '<p class="empty">Ton panier est vide.</p>';
+      panier.forEach((l, i) => {
+        const div = document.createElement('div');
+        div.className = 'line';
+        const texte = document.createElement('span');
+        texte.textContent = l.qte + ' × ' + l.p.nom + ' (' + gnf(l.p.prix * l.qte) + ')';
         const b = document.createElement('button');
         b.type = 'button';
-        b.className = 'ajout';
-        b.textContent = 'Ajouter au panier';
-        b.addEventListener('click', () => ajouter(p));
-        bloc.appendChild(b);
-      }
-      grille.appendChild(bloc);
+        b.className = 'mini-button';
+        b.textContent = 'Retirer';
+        b.addEventListener('click', () => retirer(i));
+        div.append(texte, b);
+        listePanier.appendChild(div);
+      });
+      envoyer.href = 'https://wa.me/' + NUMERO + '?text=' + encodeURIComponent(message());
+    }
+
+    function ouvrir() { panneau.hidden = false; voile.hidden = false; document.getElementById('fermer').focus(); }
+    function fermer() { panneau.hidden = true; voile.hidden = true; boutonPanier.focus(); }
+    boutonPanier.addEventListener('click', ouvrir);
+    document.getElementById('fermer').addEventListener('click', fermer);
+    voile.addEventListener('click', fermer);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panneau.hidden) fermer(); });
+    champs.forEach(c => c.addEventListener('input', majPanier));
+
+    copierNumeroBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(NUMERO).catch(() => {});
     });
-  }
 
-  const grilleCollections = document.getElementById('grille-collections');
-  const noms = ['Tout', ...new Set(collections.map(p => p.collection))];
-  const zoneFiltres = document.getElementById('filtres');
-  noms.forEach((nom, i) => {
-    const b = document.createElement('button');
-    b.textContent = nom;
-    b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
-    b.addEventListener('click', () => {
-      zoneFiltres.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
-      afficher(nom === 'Tout' ? collections : collections.filter(p => p.collection === nom), grilleCollections);
+    envoyer.addEventListener('click', e => {
+      if (!panier.length) { e.preventDefault(); erreur.textContent = 'Ton panier est vide.'; }
+      else if (champs.some(c => !c.value.trim())) { e.preventDefault(); erreur.textContent = 'Remplis ton nom, ton téléphone et ton adresse.'; }
+      else erreur.textContent = '';
     });
-    zoneFiltres.appendChild(b);
-  });
 
-  const panier = [];
-  const boutonPanier = document.getElementById('ouvrir-panier');
-  const panneau = document.getElementById('panneau');
-  const voile = document.getElementById('voile');
-  const listePanier = document.getElementById('liste-panier');
-  const totalPanier = document.getElementById('total-panier');
-  const envoyer = document.getElementById('envoyer');
-  const erreur = document.getElementById('erreur');
-  const champs = [document.getElementById('f-nom'), document.getElementById('f-tel'), document.getElementById('f-adresse')];
-  const copierNumeroBtn = document.getElementById('copier-numero');
-
-  function ajouter(p) {
-    const ligne = panier.find(l => l.p === p);
-    if (!ligne) panier.push({ p: p, qte: 1 });
-    else if (!p.unique) ligne.qte++;
+    afficher(collections, grilleCollections);
+    afficher(unSurUn, document.getElementById('grille-1of1'));
     majPanier();
-    ouvrir();
-  }
-
-  function retirer(i) { panier.splice(i, 1); majPanier(); }
-
-  function message() {
-    const total = panier.reduce((s, l) => s + l.p.prix * l.qte, 0);
-    return 'Bonjour, je souhaite commander :\n' +
-      panier.map(l => '- ' + l.qte + ' × ' + l.p.nom + ' (' + gnf(l.p.prix) + ')').join('\n') +
-      '\nTotal : ' + gnf(total) + '\nPaiement : Orange Money' +
-      '\nNom : ' + champs[0].value + '\nTéléphone : ' + champs[1].value + '\nAdresse : ' + champs[2].value;
-  }
-
-  function majPanier() {
-    const nb = panier.reduce((s, l) => s + l.qte, 0);
-    const total = panier.reduce((s, l) => s + l.p.prix * l.qte, 0);
-    boutonPanier.textContent = 'Panier (' + nb + ')';
-    totalPanier.textContent = 'Total : ' + gnf(total);
-    document.getElementById('numero').textContent = formatNumero(NUMERO);
-    listePanier.innerHTML = panier.length ? '' : '<p class="vide">Ton panier est vide.</p>';
-    panier.forEach((l, i) => {
-      const div = document.createElement('div');
-      div.className = 'ligne';
-      const texte = document.createElement('span');
-      texte.textContent = l.qte + ' × ' + l.p.nom + ' (' + gnf(l.p.prix * l.qte) + ')';
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'lien';
-      b.textContent = 'Retirer';
-      b.addEventListener('click', () => retirer(i));
-      div.append(texte, b);
-      listePanier.appendChild(div);
-    });
-    envoyer.href = 'https://wa.me/' + NUMERO + '?text=' + encodeURIComponent(message());
-  }
-
-  function ouvrir() { panneau.hidden = false; voile.hidden = false; document.getElementById('fermer').focus(); }
-  function fermer() { panneau.hidden = true; voile.hidden = true; boutonPanier.focus(); }
-  boutonPanier.addEventListener('click', ouvrir);
-  document.getElementById('fermer').addEventListener('click', fermer);
-  voile.addEventListener('click', fermer);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panneau.hidden) fermer(); });
-  champs.forEach(c => c.addEventListener('input', majPanier));
-
-  copierNumeroBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(NUMERO).catch(() => {});
-  });
-
-  envoyer.addEventListener('click', e => {
-    if (!panier.length) { e.preventDefault(); erreur.textContent = 'Ton panier est vide.'; }
-    else if (champs.some(c => !c.value.trim())) { e.preventDefault(); erreur.textContent = 'Remplis ton nom, ton téléphone et ton adresse.'; }
-    else erreur.textContent = '';
-  });
-
-  afficher(collections, grilleCollections);
-  afficher(unSurUn, document.getElementById('grille-1of1'));
-  majPanier();
-</script>
+  </script>
 </body>
 </html>
